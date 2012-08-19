@@ -1,0 +1,7 @@
+Django==1.4.1
+South==0.7.6
+psycopg2==2.4.5
+coverage==3.5.2
+django-positions==0.4.3
+dj-database-url==0.2.1
+-e git+https://github.com/DrMeers/pycon_2012_testing_demo.git@a2aac3e9#egg=testing_demo
