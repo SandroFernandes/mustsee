@@ -1,7 +1,7 @@
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.db import IntegrityError
-from testing_demo import DemoTestCase
+from testing_demo import DemoTestCase, reloaded
 from .models import Attraction, UserRank
 
 def make_attraction(name, url=''):
@@ -25,6 +25,18 @@ class SimpleTest(DemoTestCase):
         self.assertEqual(b.rank, 1)
         c = rank(self.cbd, 'B')
         self.assertEqual(c.rank, 0)
+
+        # see if inserting higher moves others
+        d = rank(self.mona, 'A', 0)
+        self.assertEqual(d.rank, 0)
+        self.assertEqual(reloaded(a).rank, 1)
+        self.assertEqual(reloaded(b).rank, 2)
+
+        # see if deleting one moves others
+        d.delete()
+        self.assertEqual(reloaded(a).rank, 0)
+        self.assertEqual(reloaded(b).rank, 1)
+
 
     def test_duplicate_rank(self):
         a = rank(self.lark, 'A')
