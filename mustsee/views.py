@@ -8,7 +8,7 @@ def get_uuid(request):
         'session_uuid', uuid.uuid4().hex)
 
 def attraction_list(request):
-    attractions = Attraction.objects.all()
+    attractions = Attraction.objects.prefetch_related('ranks')
 
     max_rank = len(attractions)
     for attraction in attractions:

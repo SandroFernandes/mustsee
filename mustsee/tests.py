@@ -34,7 +34,8 @@ class SimpleTest(DemoTestCase):
             self.assertEqual(b.rank, 1)
 
     def test_attraction_list(self):
-        response = self.client.get(reverse('list'))
+        with self.assertNumQueries(2):
+            response = self.client.get(reverse('list'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'mustsee/list.html')
         self.assertContains(response, 'Must See')

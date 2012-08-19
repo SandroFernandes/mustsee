@@ -11,13 +11,16 @@
     {% for attraction in attractions %}
       <tr>
         <td>
-
+          <a href="{{ attraction.url|default:'#' }}">
+            {{ attraction }}
+          </a>
         </td>
         <td>
-
+          {{ attraction.user_rank|add:1 }}
+          (<a href="{% url promote attraction.id %}">&uarr;</a>)
         </td>
         <td>
-
+          {{ attraction.overall_rank|add:1 }}
         </td>
       </tr>
     {% endfor %}
